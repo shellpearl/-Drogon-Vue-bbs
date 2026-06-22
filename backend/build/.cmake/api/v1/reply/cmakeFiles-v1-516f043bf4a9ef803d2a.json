@@ -1,0 +1,482 @@
+{
+	"inputs" : 
+	[
+		{
+			"path" : "CMakeLists.txt"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/4.2.2/CMakeSystem.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/scripts/buildsystems/vcpkg.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeDependentOption.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInitialize.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows-Initialize.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/4.2.2/CMakeCXXCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeSystemSpecificInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeGenericSystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeInitializeConfigs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/WindowsPaths.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCXXInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeLanguageInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/MSVC.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Compiler/CMakeCommonCompilerMacros.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows-MSVC-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Windows-MSVC.cmake"
+		},
+		{
+			"isGenerated" : true,
+			"path" : "build/CMakeFiles/4.2.2/CMakeRCCompiler.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeRCInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeCommonLanguageInclude.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeCXXLinkerInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CMakeCommonLinkerInformation.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Linker/Windows-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU-CXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Linker/Windows-GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Platform/Linker/GNU.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckIncludeFileCXX.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/FindJsoncpp.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/trantor/TrantorConfigVersion.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/trantor/TrantorConfig.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/openssl/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindOpenSSL.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/SelectLibraryConfigurations.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-config-version.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-config.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-config-version.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets-debug.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/c-ares/c-ares-targets-release.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindThreads.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckLibraryExists.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckIncludeFileCXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckCXXSourceCompiles.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CheckSourceCompiles.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/trantor/TrantorTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/trantor/TrantorTargets-debug.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/trantor/TrantorTargets-release.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/zlib/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindZLIB.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/SelectLibraryConfigurations.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/postgresql/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPostgreSQL.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/SelectLibraryConfigurations.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/FindSQLite3.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/FindBrotli.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/FindFilesystem.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakePushCheckState.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckIncludeFileCXX.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CheckCXXSourceRuns.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/Internal/CheckSourceRuns.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/FindFilesystem.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonTargets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonTargets-debug.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonTargets-release.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/DrogonUtilities.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/drogon/ParseAndAddDrogonTests.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/jwt-cpp/jwt-cpp-config-version.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/jwt-cpp/jwt-cpp-config.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/CMakeFindDependencyMacro.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/openssl/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindOpenSSL.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/SelectLibraryConfigurations.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/jwt-cpp/jwt-cpp-targets.cmake"
+		},
+		{
+			"isExternal" : true,
+			"path" : "D:/shell/Desktop/C++ThirdPartyPackages/vcpkg/installed/x64-windows/share/openssl/vcpkg-cmake-wrapper.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindOpenSSL.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/SelectLibraryConfigurations.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageHandleStandardArgs.cmake"
+		},
+		{
+			"isCMake" : true,
+			"isExternal" : true,
+			"path" : "D:/StudyTools/CLion/CLion 2026.1.1/bin/cmake/win/x64/share/cmake-4.2/Modules/FindPackageMessage.cmake"
+		},
+		{
+			"path" : "test/CMakeLists.txt"
+		}
+	],
+	"kind" : "cmakeFiles",
+	"paths" : 
+	{
+		"build" : "D:/StudyTools/CLion_Projects/bbs/backend/build",
+		"source" : "D:/StudyTools/CLion_Projects/bbs/backend"
+	},
+	"version" : 
+	{
+		"major" : 1,
+		"minor" : 1
+	}
+}
