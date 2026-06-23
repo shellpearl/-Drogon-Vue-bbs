@@ -27,7 +27,7 @@ const routes = [
     { path: '/notifications', component: NotificationList, meta: { requiresAuth: true } },
     { path: '/my', component: MyBrowse, meta: { requiresAuth: true } },
     { path: '/user/:userId', component: UserProfile },
-    { path: '/follow/:type', component: FollowList, meta: { requiresAuth: true } },
+    { path: '/follow/:type', component: FollowList, meta: { requiresAuth: true } }
 ]
 
 const router = createRouter({

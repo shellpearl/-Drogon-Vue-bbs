@@ -3,97 +3,112 @@
     <el-card class="edit-card" shadow="hover">
       <template #header>
         <div class="card-header">
-          <span class="card-title">✏️ 编辑个人信息</span>
-          <span class="card-subtitle">修改你的个人资料</span>
+          <span class="card-title">
+            {{ userStore.role === 'admin' ? '🔐 修改密码' : '✏️ 编辑个人信息' }}
+          </span>
+          <span class="card-subtitle">
+            {{ userStore.role === 'admin' ? '管理员仅可修改密码' : '修改你的个人资料' }}
+          </span>
         </div>
       </template>
 
-      <el-form :model="form" label-width="100px" class="edit-form">
-        <el-form-item label="头像" class="avatar-item">
-          <div class="avatar-wrapper">
-            <div class="avatar-display">
-              <img v-if="avatarPreview" :src="avatarPreview" class="avatar-preview" />
-              <el-avatar v-else :size="80" :src="currentAvatar" class="avatar-image" />
-              <div class="avatar-overlay" @click="triggerFileInput">
-                <el-icon><Camera /></el-icon>
-                <span>更换头像</span>
+      <template v-if="userStore.role !== 'admin'">
+        <el-form :model="form" label-width="100px" class="edit-form">
+          <el-form-item label="头像" class="avatar-item">
+            <div class="avatar-wrapper">
+              <div class="avatar-display">
+                <img v-if="avatarPreview" :src="avatarPreview" class="avatar-preview" />
+                <el-avatar v-else :size="80" :src="currentAvatar" class="avatar-image" />
+                <div class="avatar-overlay" @click="triggerFileInput">
+                  <el-icon><Camera /></el-icon>
+                  <span>更换头像</span>
+                </div>
+              </div>
+              <input
+                  type="file"
+                  ref="fileInput"
+                  accept="image/*"
+                  @change="handleFileChange"
+                  style="display: none"
+              />
+              <div class="upload-info">
+                <el-button type="primary" size="small" @click="triggerFileInput">
+                  <el-icon><Upload /></el-icon> 选择图片
+                </el-button>
+                <span v-if="uploading" class="uploading-text">上传中...</span>
+                <div class="upload-tip">支持 jpg / png / gif，大小不超过 2MB</div>
               </div>
             </div>
-            <input
-                type="file"
-                ref="fileInput"
-                accept="image/*"
-                @change="handleFileChange"
-                style="display: none"
-            />
-            <div class="upload-info">
-              <el-button type="primary" size="small" @click="triggerFileInput">
-                <el-icon><Upload /></el-icon> 选择图片
-              </el-button>
-              <span v-if="uploading" class="uploading-text">上传中...</span>
-              <div class="upload-tip">支持 jpg / png / gif，大小不超过 2MB</div>
-            </div>
-          </div>
-        </el-form-item>
+          </el-form-item>
 
-        <el-divider />
+          <el-divider />
 
-        <el-row :gutter="24">
-          <el-col :span="12">
-            <el-form-item label="昵称">
-              <el-input v-model="form.username" placeholder="请输入昵称" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="真实姓名">
-              <el-input v-model="form.name" placeholder="请输入真实姓名" />
-            </el-form-item>
-          </el-col>
-        </el-row>
+          <el-row :gutter="24">
+            <el-col :span="12">
+              <el-form-item label="昵称">
+                <el-input v-model="form.username" placeholder="请输入昵称" />
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="真实姓名">
+                <el-input v-model="form.name" placeholder="请输入真实姓名" />
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-row :gutter="24">
-          <el-col :span="12">
-            <el-form-item label="性别">
-              <el-radio-group v-model="form.gender">
-                <el-radio label="男">👨 男</el-radio>
-                <el-radio label="女">👩 女</el-radio>
-              </el-radio-group>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="生日">
-              <el-date-picker
-                  v-model="form.birthday"
-                  type="date"
-                  placeholder="选择生日"
-                  format="YYYY-MM-DD"
-                  value-format="YYYY-MM-DD"
-                  style="width:100%;"
-              />
-            </el-form-item>
-          </el-col>
-        </el-row>
+          <el-row :gutter="24">
+            <el-col :span="12">
+              <el-form-item label="性别">
+                <el-radio-group v-model="form.gender">
+                  <el-radio label="男">👨 男</el-radio>
+                  <el-radio label="女">👩 女</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
+            <el-col :span="12">
+              <el-form-item label="生日">
+                <el-date-picker
+                    v-model="form.birthday"
+                    type="date"
+                    placeholder="选择生日"
+                    format="YYYY-MM-DD"
+                    value-format="YYYY-MM-DD"
+                    style="width:100%;"
+                />
+              </el-form-item>
+            </el-col>
+          </el-row>
 
-        <el-form-item label="专业">
-          <el-input v-model="form.major" placeholder="请输入所学专业" />
-        </el-form-item>
+          <el-form-item label="专业">
+            <el-input v-model="form.major" placeholder="请输入所学专业" />
+          </el-form-item>
 
-        <el-divider />
+          <el-divider />
+        </el-form>
+      </template>
 
-        <el-form-item>
-          <div class="action-buttons">
-            <el-button type="primary" size="large" @click="saveInfo" :loading="saving">
-              <el-icon><Check /></el-icon> 保存修改
-            </el-button>
-            <el-button size="large" @click="router.back()">
-              <el-icon><Back /></el-icon> 取消
-            </el-button>
-            <el-button type="warning" size="large" @click="passwordDialogVisible = true">
-              <el-icon><Lock /></el-icon> 更改密码
-            </el-button>
-          </div>
-        </el-form-item>
-      </el-form>
+      <div v-else style="padding: 20px 0; text-align: center; color: #999;">
+        <el-icon style="font-size: 48px; color: #409EFF;"><Lock /></el-icon>
+        <p style="margin-top: 12px; font-size: 16px;">管理员请使用下方按钮修改密码</p>
+      </div>
+      <div class="action-buttons">
+        <template v-if="userStore.role !== 'admin'">
+          <el-button type="primary" size="large" @click="saveInfo" :loading="saving">
+            <el-icon><Check /></el-icon> 保存修改
+          </el-button>
+          <el-button size="large" @click="router.back()">
+            <el-icon><Back /></el-icon> 取消
+          </el-button>
+        </template>
+        <template v-else>
+          <el-button size="large" @click="router.back()">
+            <el-icon><Back /></el-icon> 返回
+          </el-button>
+        </template>
+        <el-button type="warning" size="large" @click="passwordDialogVisible = true">
+          <el-icon><Lock /></el-icon> 更改密码
+        </el-button>
+      </div>
     </el-card>
 
     <el-dialog

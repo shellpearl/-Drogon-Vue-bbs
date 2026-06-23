@@ -68,6 +68,7 @@ void UserController::updateInfo(const HttpRequestPtr& req,
 void UserController::changePassword(const HttpRequestPtr& req,
                                     std::function<void(const HttpResponsePtr&)>&& callback) {
     int userId = std::stoi(req->getAttributes()->get<std::string>("userId"));
+    std::string role = req->getAttributes()->get<std::string>("userRole");
     auto json = req->getJsonObject();
     if (!json || !json->isMember("old_password") || !json->isMember("new_password")) {
         callback(ResponseUtil::error("请提供旧密码和新密码"));
@@ -76,10 +77,11 @@ void UserController::changePassword(const HttpRequestPtr& req,
     std::string oldPwd = (*json)["old_password"].asString();
     std::string newPwd = (*json)["new_password"].asString();
 
+    std::string table = (role == "admin") ? "admin" : "student";
     auto db = app().getDbClient();
     db->execSqlAsync(
-        "SELECT password FROM student WHERE id=?",
-        [callback, oldPwd, newPwd, userId](const orm::Result &result) {
+        "SELECT password FROM " + table + " WHERE id=?",
+        [callback, oldPwd, newPwd, userId, table](const orm::Result &result) {
             if (result.empty()) {
                 callback(ResponseUtil::error("用户不存在"));
                 return;
@@ -92,7 +94,7 @@ void UserController::changePassword(const HttpRequestPtr& req,
             std::string newHash = BcryptUtils::hash(newPwd);
             auto db2 = app().getDbClient();
             db2->execSqlAsync(
-                "UPDATE student SET password=? WHERE id=?",
+                "UPDATE " + table + " SET password=? WHERE id=?",
                 [callback](const orm::Result &) {
                     callback(ResponseUtil::success(Json::nullValue, "密码修改成功"));
                 },
