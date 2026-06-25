@@ -2,16 +2,31 @@
   <div>
     <h2>消息中心</h2>
     <div style="margin-bottom: 16px;">
-      <el-button @click="markAll" type="primary" size="small">全部已读</el-button>
-      <el-tag v-if="store.connected" type="success" size="small" style="margin-left: 8px;">
-        <el-icon><Connection /></el-icon> 实时连接
-      </el-tag>
-      <el-tag v-else type="danger" size="small" style="margin-left: 8px;">
-        <el-icon><CircleClose /></el-icon> 未连接
-      </el-tag>
+      <template v-if="!editMode">
+        <el-button @click="markAll" type="primary" size="small">全部已读</el-button>
+        <el-button @click="refresh" size="small" type="default">
+          <el-icon><Refresh /></el-icon> 刷新
+        </el-button>
+        <el-button @click="editMode = true" size="small" type="warning">编辑</el-button>
+      </template>
+      <template v-else>
+        <el-button @click="deleteSelected" type="danger" size="small">删除</el-button>
+        <el-button @click="editMode = false" size="small" type="default">取消</el-button>
+        <el-button @click="selectAll" size="small" type="info">全选</el-button>
+        <el-button @click="selectRead" size="small" type="info">选中已读</el-button>
+        <span style="margin-left: 12px; font-size: 14px; color: #555;">
+          已选 {{ selectedIds.length }} 条
+        </span>
+      </template>
     </div>
 
-    <el-table :data="notifications" style="width:100%">
+    <el-table
+        ref="tableRef"
+        :data="notifications"
+        style="width:100%"
+        @selection-change="handleSelectionChange"
+    >
+      <el-table-column v-if="editMode" type="selection" width="55" />
       <el-table-column prop="content" label="内容" />
       <el-table-column label="时间" width="180" >
         <template #default="{ row }">
@@ -35,8 +50,25 @@
           >
             标记已读
           </el-button>
-          <el-button @click="goToPost(row)" size="small" type="info" plain>
+
+          <el-button
+              v-if="row.post_id > 0"
+              @click="goToPost(row)"
+              size="small"
+              type="info"
+              plain
+          >
             查看帖子
+          </el-button>
+
+          <el-button
+              v-if="row.type === 'visit' && row.sender_id"
+              @click="goToUser(row.sender_id)"
+              size="small"
+              type="success"
+              plain
+          >
+            查看用户
           </el-button>
         </template>
       </el-table-column>
@@ -49,16 +81,23 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { markAsRead as apiMarkAsRead, markAllRead as apiMarkAllRead } from '@/api/notification'
-import { ElMessage } from 'element-plus'
-import {CircleClose, Connection} from '@element-plus/icons-vue'
+import { markAsRead as apiMarkAsRead, markAllRead as apiMarkAllRead, deleteBatch } from '@/api/notification'
 import { useNotificationStore } from '@/stores/notification'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { Refresh } from '@element-plus/icons-vue'
+import type { ElTable } from 'element-plus'
 
 const router = useRouter()
 const store = useNotificationStore()
 const notifications = computed(() => store.notifications)
+
+const editMode = ref(false)
+const selectedIds = ref<number[]>([])
+const tableRef = ref<any>(null)
+
+let pollTimer: number | null = null
 
 const formatTime = (timeStr: string) => {
   if (!timeStr) return ''
@@ -70,6 +109,10 @@ const formatTime = (timeStr: string) => {
   } catch {
     return timeStr
   }
+}
+
+const refresh = () => {
+  store.fetchNotifications()
 }
 
 const markRead = async (id: number) => {
@@ -99,4 +142,69 @@ const goToPost = async (row: any) => {
   }
   router.push(`/post/${row.post_id}`)
 }
+
+const handleSelectionChange = (selection: any[]) => {
+  selectedIds.value = selection.map(item => item.id)
+}
+
+const selectAll = () => {
+  if (tableRef.value) {
+    tableRef.value.clearSelection()
+    notifications.value.forEach(row => {
+      tableRef.value?.toggleRowSelection(row, true)
+    })
+  }
+}
+
+const selectRead = () => {
+  if (tableRef.value) {
+    tableRef.value.clearSelection()
+    notifications.value.forEach(row => {
+      if (row.is_read) {
+        tableRef.value?.toggleRowSelection(row, true)
+      }
+    })
+  }
+}
+
+const deleteSelected = async () => {
+  if (selectedIds.value.length === 0) {
+    ElMessage.warning('请至少选择一条消息')
+    return
+  }
+  try {
+    await ElMessageBox.confirm(`确认删除选中的 ${selectedIds.value.length} 条消息吗？`, '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+    await deleteBatch(selectedIds.value)
+    ElMessage.success('删除成功')
+    editMode.value = false
+    selectedIds.value = []
+    await refresh()
+  } catch (error) {
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
+}
+
+const goToUser = (userId: number) => {
+  router.push(`/user/${userId}`)
+}
+
+onMounted(() => {
+  store.fetchNotifications()
+  pollTimer = window.setInterval(() => {
+    store.fetchNotifications()
+  }, 10000)
+})
+
+onUnmounted(() => {
+  if (pollTimer) {
+    clearInterval(pollTimer)
+    pollTimer = null
+  }
+})
 </script>

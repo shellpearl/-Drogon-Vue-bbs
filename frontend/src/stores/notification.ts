@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { getUnreadCount } from '@/api/notification'
+import { getUnreadCount, getNotifications } from '@/api/notification'
 
 export interface Notification {
     id: number
@@ -13,7 +13,6 @@ export interface Notification {
 export const useNotificationStore = defineStore('notification', () => {
     const unreadCount = ref(0)
     const notifications = ref<Notification[]>([])
-    const connected = ref(false)
 
     const fetchUnread = async () => {
         try {
@@ -24,13 +23,13 @@ export const useNotificationStore = defineStore('notification', () => {
         }
     }
 
-    const setNotifications = (list: Notification[]) => {
-        notifications.value = list
-    }
-
-    const addNotification = (notif: Notification) => {
-        notifications.value.unshift(notif)
-        unreadCount.value += 1
+    const fetchNotifications = async () => {
+        try {
+            const res = await getNotifications()
+            notifications.value = res.data || []
+        } catch (error) {
+            console.error('获取通知列表失败', error)
+        }
     }
 
     const markAsRead = (id: number) => {
@@ -46,26 +45,15 @@ export const useNotificationStore = defineStore('notification', () => {
         unreadCount.value = 0
     }
 
-    const setConnected = (status: boolean) => {
-        connected.value = status
-    }
-
-    const increment = () => { unreadCount.value += 1 }
-    const decrement = (num = 1) => { unreadCount.value = Math.max(0, unreadCount.value - num) }
     const reset = () => { unreadCount.value = 0 }
 
     return {
         unreadCount,
         notifications,
-        connected,
         fetchUnread,
-        setNotifications,
-        addNotification,
+        fetchNotifications,
         markAsRead,
         markAllRead,
-        setConnected,
-        increment,
-        decrement,
         reset
     }
 })

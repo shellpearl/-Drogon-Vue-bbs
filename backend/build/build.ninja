@@ -148,7 +148,7 @@ build CMakeFiles\bbs.dir\controllers\FollowController.cc.obj: CXX_COMPILER__bbs_
   TARGET_PDB = bbs.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\bbs.dir
 
-build CMakeFiles\bbs.dir\controllers\NotifWSController.cc.obj: CXX_COMPILER__bbs_unscanned_Debug D$:\StudyTools\CLion_Projects\bbs\backend\controllers\NotifWSController.cc || cmake_object_order_depends_target_bbs
+build CMakeFiles\bbs.dir\controllers\LikeController.cc.obj: CXX_COMPILER__bbs_unscanned_Debug D$:\StudyTools\CLion_Projects\bbs\backend\controllers\LikeController.cc || cmake_object_order_depends_target_bbs
   CONFIG = Debug
   DEFINES = -DJWT_DISABLE_PICOJSON -DNOMINMAX -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 /wd4251 /wd4275
@@ -159,13 +159,13 @@ build CMakeFiles\bbs.dir\controllers\NotifWSController.cc.obj: CXX_COMPILER__bbs
   TARGET_PDB = bbs.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\bbs.dir
 
-build CMakeFiles\bbs.dir\controllers\LikeController.cc.obj: CXX_COMPILER__bbs_unscanned_Debug D$:\StudyTools\CLion_Projects\bbs\backend\controllers\LikeController.cc || cmake_object_order_depends_target_bbs
+build CMakeFiles\bbs.dir\filters\TokenHelper.cc.obj: CXX_COMPILER__bbs_unscanned_Debug D$:\StudyTools\CLion_Projects\bbs\backend\filters\TokenHelper.cc || cmake_object_order_depends_target_bbs
   CONFIG = Debug
   DEFINES = -DJWT_DISABLE_PICOJSON -DNOMINMAX -DWIN32_LEAN_AND_MEAN -D_CRT_SECURE_NO_WARNINGS
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1 -std:c++20 /wd4251 /wd4275
   INCLUDES = -I"C:\Program Files\MySQL\mysql-connector-c++-9.3.0-winx64\include" -ID:\StudyTools\CLion_Projects\bbs\backend -ID:\StudyTools\CLion_Projects\bbs\backend\models -ID:\StudyTools\CLion_Projects\bbs\backend\third_party\bcrypt -external:ID:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\include -external:W0
   OBJECT_DIR = CMakeFiles\bbs.dir
-  OBJECT_FILE_DIR = CMakeFiles\bbs.dir\controllers
+  OBJECT_FILE_DIR = CMakeFiles\bbs.dir\filters
   TARGET_COMPILE_PDB = CMakeFiles\bbs.dir\
   TARGET_PDB = bbs.pdb
   TARGET_SUPPORT_DIR = CMakeFiles\bbs.dir
@@ -266,7 +266,7 @@ build CMakeFiles\bbs.dir\filters\TokenFilter.cc.obj: CXX_COMPILER__bbs_unscanned
 #############################################
 # Link the executable bbs.exe
 
-build bbs.exe: CXX_EXECUTABLE_LINKER__bbs_Debug CMakeFiles\bbs.dir\main.cc.obj CMakeFiles\bbs.dir\utils\BcryptUtils.cc.obj CMakeFiles\bbs.dir\utils\JwtUtils.cc.obj CMakeFiles\bbs.dir\utils\ResponseUtil.cc.obj CMakeFiles\bbs.dir\third_party\bcrypt\bcrypt.cpp.obj CMakeFiles\bbs.dir\third_party\bcrypt\blowfish.cpp.obj CMakeFiles\bbs.dir\controllers\NotificationController.cc.obj CMakeFiles\bbs.dir\controllers\BrowseHistoryController.cc.obj CMakeFiles\bbs.dir\controllers\FollowController.cc.obj CMakeFiles\bbs.dir\controllers\NotifWSController.cc.obj CMakeFiles\bbs.dir\controllers\LikeController.cc.obj CMakeFiles\bbs.dir\controllers\AdminController.cc.obj CMakeFiles\bbs.dir\controllers\AuthController.cc.obj CMakeFiles\bbs.dir\controllers\BoardController.cc.obj CMakeFiles\bbs.dir\controllers\PostController.cc.obj CMakeFiles\bbs.dir\controllers\ReplyController.cc.obj CMakeFiles\bbs.dir\controllers\UserController.cc.obj CMakeFiles\bbs.dir\filters\AdminFilter.cc.obj CMakeFiles\bbs.dir\filters\TokenFilter.cc.obj | D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\drogon.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\libssl.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\trantor.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\libcrypto.lib
+build bbs.exe: CXX_EXECUTABLE_LINKER__bbs_Debug CMakeFiles\bbs.dir\main.cc.obj CMakeFiles\bbs.dir\utils\BcryptUtils.cc.obj CMakeFiles\bbs.dir\utils\JwtUtils.cc.obj CMakeFiles\bbs.dir\utils\ResponseUtil.cc.obj CMakeFiles\bbs.dir\third_party\bcrypt\bcrypt.cpp.obj CMakeFiles\bbs.dir\third_party\bcrypt\blowfish.cpp.obj CMakeFiles\bbs.dir\controllers\NotificationController.cc.obj CMakeFiles\bbs.dir\controllers\BrowseHistoryController.cc.obj CMakeFiles\bbs.dir\controllers\FollowController.cc.obj CMakeFiles\bbs.dir\controllers\LikeController.cc.obj CMakeFiles\bbs.dir\filters\TokenHelper.cc.obj CMakeFiles\bbs.dir\controllers\AdminController.cc.obj CMakeFiles\bbs.dir\controllers\AuthController.cc.obj CMakeFiles\bbs.dir\controllers\BoardController.cc.obj CMakeFiles\bbs.dir\controllers\PostController.cc.obj CMakeFiles\bbs.dir\controllers\ReplyController.cc.obj CMakeFiles\bbs.dir\controllers\UserController.cc.obj CMakeFiles\bbs.dir\filters\AdminFilter.cc.obj CMakeFiles\bbs.dir\filters\TokenFilter.cc.obj | D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\drogon.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\libssl.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\trantor.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\jsoncpp.lib D$:\shell\Desktop\C++ThirdPartyPackages\vcpkg\installed\x64-windows\debug\lib\libcrypto.lib
   CONFIG = Debug
   FLAGS = /DWIN32 /D_WINDOWS /W3 /GR /EHsc /MDd /Zi /Ob0 /Od /RTC1
   LINK_FLAGS = /machine:x64 /debug /INCREMENTAL /subsystem:console

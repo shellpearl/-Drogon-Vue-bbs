@@ -1,7 +1,9 @@
 #pragma once
-#include "TokenFilter.h"
+#include <drogon/HttpFilter.h>
 
-class AdminFilter : public TokenFilter {
+using namespace drogon;
+
+class AdminFilter : public HttpFilter<AdminFilter> {
 public:
     void doFilter(const HttpRequestPtr& req,
                   FilterCallback&& fcb,

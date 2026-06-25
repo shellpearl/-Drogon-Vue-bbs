@@ -17,7 +17,7 @@ void BrowseHistoryController::getHistory(const HttpRequestPtr& req,
         "FROM browse_history h "
         "JOIN post p ON h.post_id = p.id "
         "JOIN board b ON p.board_id = b.id "
-        "WHERE h.user_id = ? "
+        "WHERE h.user_id = ? AND p.is_deleted = 0 "
         "ORDER BY b.id, h.browse_time DESC",
         [callback](const orm::Result &result) {
             std::map<int, Json::Value> boardMap;

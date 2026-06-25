@@ -1,8 +1,9 @@
 #include "UserController.h"
 #include "utils/ResponseUtil.h"
 #include "utils/BcryptUtils.h"
-#include <drogon/utils/Utilities.h>
 #include <filesystem>
+
+#include "utils/JwtUtils.h"
 
 void UserController::getInfo(const HttpRequestPtr& req,
                              std::function<void(const HttpResponsePtr&)>&& callback) {
@@ -48,6 +49,7 @@ void UserController::updateInfo(const HttpRequestPtr& req,
         callback(ResponseUtil::error("无效的JSON"));
         return;
     }
+    std::string username = (*json)["username"].asString();
     std::string name = (*json)["name"].asString();
     std::string gender = (*json)["gender"].asString();
     std::string birthday = (*json)["birthday"].asString();
@@ -55,14 +57,14 @@ void UserController::updateInfo(const HttpRequestPtr& req,
 
     auto db = app().getDbClient();
     db->execSqlAsync(
-        "UPDATE student SET name=?, gender=?, birthday=?, major=? WHERE id=?",
+        "UPDATE student SET username=?, name=?, gender=?, birthday=?, major=? WHERE id=?",
         [callback](const orm::Result &) {
             callback(ResponseUtil::success(Json::nullValue, "更新成功"));
         },
         [callback](const orm::DrogonDbException &e) {
             callback(ResponseUtil::error("数据库错误"));
         },
-        name, gender, birthday, major, userId);
+        username, name, gender, birthday, major, userId);
 }
 
 void UserController::changePassword(const HttpRequestPtr& req,
@@ -189,12 +191,30 @@ void UserController::getMyPosts(const HttpRequestPtr& req,
 
 void UserController::getPublicProfile(const HttpRequestPtr& req,
                                       std::function<void(const HttpResponsePtr&)>&& callback,
-                                      int userId) {
-    LOG_DEBUG << "getPublicProfile called for userId: " << userId;
+                                      int targetUserId) {
+
+    int currentUserId = 0;
+    std::string currentRole;
+    auto auth = req->getHeader("Authorization");
+    if (auth.size() > 7 && auth.substr(0, 7) == "Bearer ") {
+        std::string token = auth.substr(7);
+        int id;
+        std::string role;
+        if (JwtUtils::verifyToken(token, id, role)) {
+            currentUserId = id;
+            currentRole = role;
+            LOG_INFO << "Authenticated user: " << currentUserId << ", role: " << currentRole;
+        } else {
+            LOG_INFO << "Token invalid";
+        }
+    } else {
+        LOG_INFO << "No Authorization header";
+    }
+
     auto db = app().getDbClient();
     db->execSqlAsync(
         "SELECT 'student' as type, id, username, name, gender, birthday, major, avatar FROM student WHERE id=?",
-        [callback, userId, db](const orm::Result &result) {
+        [callback, targetUserId, currentUserId, currentRole, db](const orm::Result &result) {
             if (!result.empty()) {
                 const auto &row = result[0];
                 Json::Value data;
@@ -206,6 +226,59 @@ void UserController::getPublicProfile(const HttpRequestPtr& req,
                 data["birthday"] = row["birthday"].as<std::string>();
                 data["major"] = row["major"].as<std::string>();
                 data["avatar"] = row["avatar"].as<std::string>();
+
+                std::string targetType = row["type"].as<std::string>();
+
+                if (currentUserId != targetUserId) {
+                    bool isGuest = (currentUserId == 0);
+
+                    auto db2 = app().getDbClient();
+                    db2->execSqlAsync(
+                        "INSERT INTO profile_view (viewer_id, target_user_id, target_user_type, viewed_at) "
+                        "VALUES (?, ?, ?, NOW())",
+                        [targetUserId, targetType, currentUserId, currentRole, isGuest](const orm::Result &) {
+
+                            if (isGuest) {
+                                std::string content = "有游客查看了您的主页";
+                                auto db4 = app().getDbClient();
+                                db4->execSqlAsync(
+                                    "INSERT INTO notification (receiver_id, receiver_type, sender_id, sender_type, post_id, type, content) "
+                                    "VALUES (?, ?, ?, ?, NULL, 'visit', ?)",
+                                    [](const orm::Result &) {
+                                    },
+                                    [](const orm::DrogonDbException &e) {
+                                    },
+                                    targetUserId, targetType, 0, "student", content);
+                            } else {
+                                std::string table = (currentRole == "admin") ? "admin" : "student";
+                                std::string nameField = (currentRole == "admin") ? "admin_name" : "name";
+                                auto db3 = app().getDbClient();
+                                db3->execSqlAsync(
+                                    "SELECT " + nameField + " as name FROM " + table + " WHERE id=?",
+                                    [targetUserId, targetType, currentUserId, currentRole](const orm::Result &r2) {
+                                        std::string viewerName = r2[0]["name"].as<std::string>();
+                                        std::string content = viewerName + " 查看了您的主页";
+                                        auto db4 = app().getDbClient();
+                                        db4->execSqlAsync(
+                                            "INSERT INTO notification (receiver_id, receiver_type, sender_id, sender_type, post_id, type, content) "
+                                            "VALUES (?, ?, ?, ?, NULL, 'visit', ?)",
+                                            [](const orm::Result &) {
+                                            },
+                                            [](const orm::DrogonDbException &e) {
+                                            },
+                                            targetUserId, targetType, currentUserId, currentRole, content);
+                                    },
+                                    [](const orm::DrogonDbException &e) {
+                                    },
+                                    currentUserId);
+                            }
+                        },
+                        [](const orm::DrogonDbException &e) {
+                        },
+                        currentUserId, targetUserId, targetType);
+                } else {
+                }
+
                 db->execSqlAsync(
                     "SELECT "
                     "  (SELECT COUNT(*) FROM user_follows WHERE follower_id=?) AS following_count, "
@@ -219,12 +292,13 @@ void UserController::getPublicProfile(const HttpRequestPtr& req,
                     [callback](const orm::DrogonDbException &e) {
                         callback(ResponseUtil::error("获取数量失败"));
                     },
-                    userId, userId);
+                    targetUserId, targetUserId);
                 return;
             }
+
             db->execSqlAsync(
                 "SELECT 'admin' as type, id, admin_name as username, '' as name, '' as gender, '' as birthday, '' as major, '' as avatar FROM admin WHERE id=?",
-                [callback, userId, db](const orm::Result &r) {
+                [callback, targetUserId, currentUserId, currentRole, db](const orm::Result &r) {
                     if (r.empty()) {
                         callback(ResponseUtil::error("用户不存在"));
                         return;
@@ -239,6 +313,59 @@ void UserController::getPublicProfile(const HttpRequestPtr& req,
                     data["birthday"] = "";
                     data["major"] = "";
                     data["avatar"] = "";
+
+                    std::string targetType = row["type"].as<std::string>();
+
+                    if (currentUserId != targetUserId) {
+                        bool isGuest = (currentUserId == 0);
+
+                        auto db2 = app().getDbClient();
+                        db2->execSqlAsync(
+                            "INSERT INTO profile_view (viewer_id, target_user_id, target_user_type, viewed_at) "
+                            "VALUES (?, ?, ?, NOW())",
+                            [targetUserId, targetType, currentUserId, currentRole, isGuest](const orm::Result &) {
+
+                                if (isGuest) {
+                                    std::string content = "有游客查看了您的主页";
+                                    auto db4 = app().getDbClient();
+                                    db4->execSqlAsync(
+                                        "INSERT INTO notification (receiver_id, receiver_type, sender_id, sender_type, post_id, type, content) "
+                                        "VALUES (?, ?, ?, ?, NULL, 'visit', ?)",
+                                        [](const orm::Result &) {
+                                        },
+                                        [](const orm::DrogonDbException &e) {
+                                        },
+                                        targetUserId, targetType, 0, "student", content);
+                                } else {
+                                    std::string table = (currentRole == "admin") ? "admin" : "student";
+                                    std::string nameField = (currentRole == "admin") ? "admin_name" : "name";
+                                    auto db3 = app().getDbClient();
+                                    db3->execSqlAsync(
+                                        "SELECT " + nameField + " as name FROM " + table + " WHERE id=?",
+                                        [targetUserId, targetType, currentUserId, currentRole](const orm::Result &r2) {
+                                            std::string viewerName = r2[0]["name"].as<std::string>();
+                                            std::string content = viewerName + " 查看了您的主页";
+                                            auto db4 = app().getDbClient();
+                                            db4->execSqlAsync(
+                                                "INSERT INTO notification (receiver_id, receiver_type, sender_id, sender_type, post_id, type, content) "
+                                                "VALUES (?, ?, ?, ?, NULL, 'visit', ?)",
+                                                [](const orm::Result &) {
+                                                },
+                                                [](const orm::DrogonDbException &e) {
+                                                },
+                                                targetUserId, targetType, currentUserId, currentRole, content);
+                                        },
+                                        [](const orm::DrogonDbException &e) {
+                                        },
+                                        currentUserId);
+                                }
+                            },
+                            [](const orm::DrogonDbException &e) {
+                            },
+                            currentUserId, targetUserId, targetType);
+                    } else {
+                    }
+
                     db->execSqlAsync(
                         "SELECT "
                         "  (SELECT COUNT(*) FROM user_follows WHERE follower_id=?) AS following_count, "
@@ -252,15 +379,15 @@ void UserController::getPublicProfile(const HttpRequestPtr& req,
                         [callback](const orm::DrogonDbException &e) {
                             callback(ResponseUtil::error("获取数量失败"));
                         },
-                        userId, userId);
+                        targetUserId, targetUserId);
                 },
                 [callback](const orm::DrogonDbException &e) {
                     callback(ResponseUtil::error("用户不存在"));
                 },
-                userId);
+                targetUserId);
         },
         [callback](const orm::DrogonDbException &e) {
             callback(ResponseUtil::error("数据库错误"));
         },
-        userId);
+        targetUserId);
 }

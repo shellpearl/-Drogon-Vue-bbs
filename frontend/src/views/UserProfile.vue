@@ -3,7 +3,6 @@
     <div v-if="loading" class="loading">加载中...</div>
     <div v-else-if="!user" class="error">用户不存在</div>
     <div v-else>
-      <!-- 用户信息卡片 -->
       <div class="user-card">
         <div class="user-left">
           <el-avatar :size="80" :src="user.avatar || ''">
@@ -51,7 +50,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { getPublicUser } from '@/api/user'
 import { checkFollow, toggleFollow } from '@/api/follow'
@@ -63,26 +62,18 @@ const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
-const userId = Number(route.params.userId)
 const user = ref<any>(null)
 const userPosts = ref<any[]>([])
 const isFollowing = ref(false)
 const loading = ref(true)
 
-const fetchUserPosts = async () => {
-  try {
-    const res = await getPostsByAuthor(userId)
-    userPosts.value = res.data
-  } catch (error) {
-  }
-}
-
-onMounted(async () => {
-  await fetchUser()
-  await fetchUserPosts()
-})
-
 const fetchUser = async () => {
+  const userId = Number(route.params.userId)
+  if (!userId) {
+    loading.value = false
+    return
+  }
+  loading.value = true
   try {
     const res = await getPublicUser(userId)
     user.value = res.data
@@ -97,7 +88,34 @@ const fetchUser = async () => {
   }
 }
 
+const fetchUserPosts = async () => {
+  const userId = Number(route.params.userId)
+  if (!userId) return
+  try {
+    const res = await getPostsByAuthor(userId)
+    userPosts.value = res.data
+  } catch (error) {
+    // 忽略
+  }
+}
+
+// 加载数据（合并两个请求，避免重复调用）
+const loadData = async () => {
+  await fetchUser()
+  await fetchUserPosts()
+}
+
+// 监听路由参数变化，避免重复请求
+watch(
+    () => route.params.userId,
+    () => {
+      loadData()
+    },
+    { immediate: true }
+)
+
 const handleToggleFollow = async () => {
+  const userId = Number(route.params.userId)
   try {
     await toggleFollow({
       followee_id: userId,
@@ -116,6 +134,7 @@ const handleToggleFollow = async () => {
 }
 
 const goToFollowList = (type: 'following' | 'followers') => {
+  const userId = Number(route.params.userId)
   router.push({
     path: `/follow/${type}`,
     query: { userId: String(userId) }
@@ -125,8 +144,6 @@ const goToFollowList = (type: 'following' | 'followers') => {
 const goToPost = (postId: number) => {
   router.push(`/post/${postId}`)
 }
-
-onMounted(fetchUser)
 </script>
 
 <style scoped>

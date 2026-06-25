@@ -28,10 +28,10 @@ set(BCRYPT_SOURCES
         controllers/BrowseHistoryController.cc
         controllers/FollowController.h
         controllers/FollowController.cc
-        controllers/NotifWSController.h
-        controllers/NotifWSController.cc
         controllers/LikeController.h
         controllers/LikeController.cc
+        filters/TokenHelper.h
+        filters/TokenHelper.cc
 )
 
 add_executable(${PROJECT_NAME} main.cc

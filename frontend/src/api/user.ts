@@ -14,4 +14,4 @@ export const uploadAvatar = (file: File) => {
 }
 
 export const getMyPosts = () => request.get('/user/posts')
-export const getPublicUser = (userId: number) => request.get(`/user/profile/${userId}`)
+export const getPublicUser = (userId: number) => request.get(`/user/public/${userId}`)

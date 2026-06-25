@@ -10,7 +10,7 @@ public:
         ADD_METHOD_TO(UserController::changePassword, "/api/user/password", Post, "TokenFilter");
         ADD_METHOD_TO(UserController::uploadAvatar, "/api/user/avatar", Post, "TokenFilter");
         ADD_METHOD_TO(UserController::getMyPosts, "/api/user/posts", Get, "TokenFilter");
-        ADD_METHOD_TO(UserController::getPublicProfile, "/api/user/profile/{userId}", Get);
+        ADD_METHOD_TO(UserController::getPublicProfile, "/api/user/public/{userId}", Get);
     METHOD_LIST_END
 
     void getInfo(const HttpRequestPtr& req,

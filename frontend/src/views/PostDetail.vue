@@ -1,78 +1,86 @@
 <template>
   <div class="post-detail-page">
-    <el-card class="post-card" shadow="hover">
-      <template #header>
-        <div class="post-header">
-          <div class="post-author">
-            <el-avatar :size="40" :src="post.author_avatar || ''">
-              {{ post.author_name?.charAt(0) || 'U' }}
-            </el-avatar>
-            <div class="author-info">
-              <span class="author-name">{{ post.author_name }}</span>
-              <span class="post-time">{{ post.post_time }}</span>
+    <div v-if="error" class="error-container">
+      <el-icon class="error-icon"><CircleClose /></el-icon>
+      <p class="error-message">该帖子已被删除或不存在</p>
+      <el-button @click="$router.back()" type="primary" plain>返回</el-button>
+    </div>
+
+    <template v-else>
+      <el-card class="post-card" shadow="hover">
+        <template #header>
+          <div class="post-header">
+            <div class="post-author">
+              <el-avatar :size="40" :src="post.author_avatar || ''">
+                {{ post.author_name?.charAt(0) || 'U' }}
+              </el-avatar>
+              <div class="author-info">
+                <span class="author-name">{{ post.author_name }}</span>
+                <span class="post-time">{{ post.post_time }}</span>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
-      <h2 class="post-title">{{ post.title }}</h2>
-      <div class="post-content">{{ post.content }}</div>
+        </template>
+        <h2 class="post-title">{{ post.title }}</h2>
+        <div class="post-content">{{ post.content }}</div>
 
-      <div class="post-like">
-        <div
-            class="like-container"
-            :class="{ 'liked': post.is_liked, 'disabled': !userStore.token }"
-            @click="handleLike"
-        >
-          <div class="like-icon">
-            <span class="heart-symbol">{{ post.is_liked ? '♥' : '♡' }}</span>
-          </div>
-          <div class="like-count">{{ post.like_count }}</div>
-        </div>
-      </div>
-    </el-card>
-
-    <el-card class="reply-card" shadow="hover">
-      <template #header>
-        <span class="reply-title">回复（{{ replies.length }}）</span>
-      </template>
-
-      <div v-if="replies.length === 0" class="empty-replies">暂无回复，快来抢沙发吧 🛋️</div>
-      <el-timeline v-else>
-        <el-timeline-item
-            v-for="reply in replies"
-            :key="reply.id"
-            :timestamp="reply.reply_time"
-            placement="top"
-            size="large"
-        >
-          <div class="reply-item">
-            <el-avatar :size="32" class="reply-avatar" :src="reply.student_avatar || ''">
-              {{ reply.student_name?.charAt(0) || 'U' }}
-            </el-avatar>
-            <div class="reply-body">
-              <span class="reply-author">{{ reply.student_name }}</span>
-              <div class="reply-content">{{ reply.content }}</div>
+        <div class="post-like">
+          <div
+              class="like-container"
+              :class="{ 'liked': post.is_liked, 'disabled': !userStore.token }"
+              @click="handleLike"
+          >
+            <div class="like-icon">
+              <span class="heart-symbol">{{ post.is_liked ? '♥' : '♡' }}</span>
             </div>
+            <div class="like-count">{{ post.like_count }}</div>
           </div>
-        </el-timeline-item>
-      </el-timeline>
+        </div>
+      </el-card>
 
-      <div v-if="userStore.token" class="reply-input-area">
-        <el-input
-            v-model="replyContent"
-            type="textarea"
-            :rows="3"
-            placeholder="写下你的回复..."
-            resize="none"
-        />
-        <el-button type="primary" @click="submitReply" class="submit-btn">
-          发布回复
-        </el-button>
-      </div>
-      <div v-else class="login-tip">
-        <el-alert title="请登录后回复" type="info" :closable="false" show-icon />
-      </div>
-    </el-card>
+      <el-card class="reply-card" shadow="hover">
+        <template #header>
+          <span class="reply-title">回复（{{ replies.length }}）</span>
+        </template>
+
+        <div v-if="replies.length === 0" class="empty-replies">暂无回复，快来抢沙发吧 🛋️</div>
+        <el-timeline v-else>
+          <el-timeline-item
+              v-for="reply in replies"
+              :key="reply.id"
+              :timestamp="reply.reply_time"
+              placement="top"
+              size="large"
+          >
+            <div class="reply-item">
+              <el-avatar :size="32" class="reply-avatar" :src="reply.student_avatar || ''">
+                {{ reply.student_name?.charAt(0) || 'U' }}
+              </el-avatar>
+              <div class="reply-body">
+                <span class="reply-author">{{ reply.student_name }}</span>
+                <div class="reply-content">{{ reply.content }}</div>
+              </div>
+            </div>
+          </el-timeline-item>
+        </el-timeline>
+
+        <div v-if="userStore.token" class="reply-input-area">
+          <el-input
+              v-model="replyContent"
+              type="textarea"
+              :rows="3"
+              placeholder="写下你的回复..."
+              resize="none"
+          />
+          <el-button type="primary" @click="submitReply" class="submit-btn">
+            发布回复
+          </el-button>
+        </div>
+        <div v-else class="login-tip">
+          <el-alert title="请登录后回复" type="info" :closable="false" show-icon />
+        </div>
+      </el-card>
+    </template>
   </div>
 </template>
 
@@ -119,14 +127,24 @@ const post = ref<PostDetail>({
 })
 const replies = ref<Reply[]>([])
 const replyContent = ref('')
+const error = ref(false)
+const loading = ref(true)
 
 const fetchDetail = async () => {
+  loading.value = true
   try {
     const res = await getPostDetail(postId)
-    post.value = res.data.post || {}
-    replies.value = res.data.replies || []
-  } catch (error) {
-    ElMessage.error('加载帖子失败')
+    if (res.data && res.data.post && res.data.post.id) {
+      post.value = res.data.post
+      replies.value = res.data.replies || []
+      error.value = false
+    } else {
+      error.value = true
+    }
+  } catch (err) {
+    error.value = true
+  } finally {
+    loading.value = false
   }
 }
 
@@ -167,7 +185,23 @@ onMounted(fetchDetail)
   margin: 0 auto;
   padding: 20px;
 }
-
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  color: #999;
+}
+.error-icon {
+  font-size: 64px;
+  color: #d9d9d9;
+}
+.error-message {
+  font-size: 18px;
+  margin: 16px 0 24px;
+  color: #666;
+}
 .post-card {
   margin-bottom: 24px;
 }
@@ -286,11 +320,11 @@ onMounted(fetchDetail)
   font-size: 28px;
   line-height: 1;
   transition: color 0.3s;
-  color: #909399; /* 默认灰色（空心） */
+  color: #909399;
 }
 
 .like-container.liked .heart-symbol {
-  color: #f56c6c; /* 点赞后红色 */
+  color: #f56c6c;
 }
 
 .like-count {

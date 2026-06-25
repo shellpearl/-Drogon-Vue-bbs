@@ -57,11 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, computed, watch } from 'vue'
+import { onMounted, onUnmounted, computed } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { ElMessageBox, ElMessage } from 'element-plus'
 import { useNotificationStore } from '@/stores/notification'
+import { ElMessageBox, ElMessage } from 'element-plus'
 
 const router = useRouter()
 const route = useRoute()
@@ -71,76 +71,7 @@ const unreadCount = computed(() => notificationStore.unreadCount)
 
 const activeMenu = computed(() => route.path)
 
-let ws: WebSocket | null = null
-let heartbeatTimer: number | null = null
-let reconnectTimer: number | null = null
-
-const connectNotificationWS = () => {
-  if (ws) {
-    ws.close()
-    ws = null
-  }
-  const token = localStorage.getItem('token')
-  if (!token) {
-    return
-  }
-  const wsUrl = `ws://localhost:8080/api/notifications/ws?token=${token}`
-  ws = new WebSocket(wsUrl)
-
-  ws.onopen = () => {
-    console.log('🔔 Notification WebSocket connected')
-    notificationStore.setConnected(true)
-    if (heartbeatTimer) clearInterval(heartbeatTimer)
-    heartbeatTimer = window.setInterval(() => {
-      if (ws && ws.readyState === WebSocket.OPEN) {
-        ws.send('ping')
-      }
-    }, 30000)
-  }
-
-  ws.onmessage = (event) => {
-    try {
-      const data = JSON.parse(event.data)
-      if (data.type === 'history') {
-        notificationStore.setNotifications(data.data || [])
-      } else if (data.type === 'new') {
-        notificationStore.addNotification(data.data)
-        ElMessage.info(`📩 ${data.data.content}`)
-      }
-    } catch (e) {
-      console.error('解析消息失败', e)
-    }
-  }
-
-  ws.onclose = () => {
-    console.log('🔔 Notification WebSocket closed')
-    notificationStore.setConnected(false)
-    if (heartbeatTimer) {
-      clearInterval(heartbeatTimer)
-      heartbeatTimer = null
-    }
-    if (reconnectTimer) clearTimeout(reconnectTimer)
-    reconnectTimer = window.setTimeout(connectNotificationWS, 5000)
-  }
-
-  ws.onerror = (error) => {
-    console.error('Notification WS error', error)
-    ws?.close()
-  }
-}
-
-watch(() => userStore.token, (newToken, oldToken) => {
-  if (newToken && !oldToken) {
-    connectNotificationWS()
-  } else if (!newToken && oldToken) {
-    if (ws) {
-      ws.close()
-      ws = null
-    }
-    notificationStore.setConnected(false)
-  }
-}, { immediate: false })
-
+let pollTimer: number | null = null
 
 const handleLogout = async () => {
   try {
@@ -151,11 +82,6 @@ const handleLogout = async () => {
     })
     userStore.logout()
     notificationStore.reset()
-    notificationStore.setConnected(false)
-    if (ws) {
-      ws.close()
-      ws = null
-    }
     ElMessage.success('已退出')
     router.push('/login')
   } catch {
@@ -163,16 +89,21 @@ const handleLogout = async () => {
 }
 
 onMounted(() => {
-  if(userStore.token){
-    connectNotificationWS()
+  if (userStore.token) {
+    notificationStore.fetchUnread()
+    pollTimer = window.setInterval(() => {
+      if (userStore.token) {
+        notificationStore.fetchUnread()
+      }
+    }, 10000)
   }
-  notificationStore.fetchUnread()
 })
 
 onUnmounted(() => {
-  if (ws) ws.close()
-  if (heartbeatTimer) clearInterval(heartbeatTimer)
-  if (reconnectTimer) clearTimeout(reconnectTimer)
+  if (pollTimer) {
+    clearInterval(pollTimer)
+    pollTimer = null
+  }
 })
 </script>
 

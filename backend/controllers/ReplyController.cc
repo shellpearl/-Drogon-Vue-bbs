@@ -1,6 +1,5 @@
 #include "ReplyController.h"
 #include "utils/ResponseUtil.h"
-#include "NotifWSController.h"
 
 void ReplyController::createReply(const HttpRequestPtr& req,
                                   std::function<void(const HttpResponsePtr&)>&& callback) {
@@ -52,7 +51,6 @@ void ReplyController::createReply(const HttpRequestPtr& req,
                                             notif["content"] = notifContent;
                                             notif["is_read"] = false;
                                             notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                            NotifWSController::pushNotification(authorId, notif);
                                             callback(ResponseUtil::success(Json::nullValue, "回复成功"));
                                         },
                                         [callback](const orm::DrogonDbException &e) {
@@ -77,7 +75,6 @@ void ReplyController::createReply(const HttpRequestPtr& req,
                                             notif["content"] = notifContent;
                                             notif["is_read"] = false;
                                             notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                            NotifWSController::pushNotification(authorId, notif);
                                             callback(ResponseUtil::success(Json::nullValue, "回复成功"));
                                         },
                                         [callback](const orm::DrogonDbException &e) {
@@ -106,7 +103,6 @@ void ReplyController::createReply(const HttpRequestPtr& req,
                                             notif["content"] = notifContent;
                                             notif["is_read"] = false;
                                             notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                            NotifWSController::pushNotification(authorId, notif);
                                             callback(ResponseUtil::success(Json::nullValue, "回复成功"));
                                         },
                                         [callback](const orm::DrogonDbException &e) {
@@ -130,7 +126,6 @@ void ReplyController::createReply(const HttpRequestPtr& req,
                                             notif["content"] = notifContent;
                                             notif["is_read"] = false;
                                             notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                            NotifWSController::pushNotification(authorId, notif);
                                             callback(ResponseUtil::success(Json::nullValue, "回复成功"));
                                         },
                                         [callback](const orm::DrogonDbException &e) {
@@ -188,7 +183,8 @@ void ReplyController::getMyReplies(const HttpRequestPtr& req,
     db->execSqlAsync(
         "SELECT r.id, r.content, r.reply_time, p.title as post_title, p.id as post_id "
         "FROM reply r JOIN post p ON r.post_id = p.id "
-        "WHERE r.student_id = ? ORDER BY r.reply_time DESC",
+        "WHERE r.student_id = ? AND p.is_deleted = 0 "
+        "ORDER BY r.reply_time DESC",
         [callback](const orm::Result &result) {
             Json::Value data(Json::arrayValue);
             for (const auto &row : result) {

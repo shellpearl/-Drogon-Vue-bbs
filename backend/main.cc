@@ -1,5 +1,5 @@
 #include <drogon/drogon.h>
-
+#include <drogon/DrClassMap.h>
 #include "filters/AdminFilter.h"
 
 int main() {

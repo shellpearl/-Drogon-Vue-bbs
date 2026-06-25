@@ -1,6 +1,5 @@
 #include "LikeController.h"
 #include "utils/ResponseUtil.h"
-#include "NotifWSController.h"
 #include <drogon/orm/DbClient.h>
 
 void LikeController::toggleLike(const HttpRequestPtr& req,
@@ -56,7 +55,6 @@ void LikeController::toggleLike(const HttpRequestPtr& req,
                                                 notif["content"] = content;
                                                 notif["is_read"] = false;
                                                 notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                                NotifWSController::pushNotification(authorId, notif);
                                                 callback(ResponseUtil::success(Json::nullValue, "点赞成功"));
                                             },
                                             [callback](const orm::DrogonDbException &e) {
@@ -81,7 +79,6 @@ void LikeController::toggleLike(const HttpRequestPtr& req,
                                                 notif["content"] = content;
                                                 notif["is_read"] = false;
                                                 notif["created_at"] = trantor::Date::now().toFormattedString("%Y-%m-%d %H:%M:%S");
-                                                NotifWSController::pushNotification(authorId, notif);
                                                 callback(ResponseUtil::success(Json::nullValue, "点赞成功"));
                                             },
                                             [callback](const orm::DrogonDbException &e) {
