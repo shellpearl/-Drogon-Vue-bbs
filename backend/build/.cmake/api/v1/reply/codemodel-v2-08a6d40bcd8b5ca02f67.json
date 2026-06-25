@@ -1,0 +1,246 @@
+{
+	"configurations" : 
+	[
+		{
+			"abstractTargets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Brotli_lib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Brotli_lib-Debug-1684395f2de728de50cb.json",
+					"name" : "Brotli_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Drogon::Drogon::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Drogon__Drogon-Debug-ffc04b43dd5f30584752.json",
+					"name" : "Drogon::Drogon",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Jsoncpp_lib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Jsoncpp_lib-Debug-03771096121b97aa12c4.json",
+					"name" : "Jsoncpp_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OpenSSL::Crypto::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OpenSSL__Crypto-Debug-fca63c71da5b476e56e1.json",
+					"name" : "OpenSSL::Crypto",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OpenSSL::SSL::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OpenSSL__SSL-Debug-5a8269da6001a4957aad.json",
+					"name" : "OpenSSL::SSL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "OpenSSL::applink::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-OpenSSL__applink-Debug-13848ca66283fb282262.json",
+					"name" : "OpenSSL::applink",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "PostgreSQL::PostgreSQL::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-PostgreSQL__PostgreSQL-Debug-bf652e87c961b49e447b.json",
+					"name" : "PostgreSQL::PostgreSQL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "SQLite3_lib::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-SQLite3_lib-Debug-161bac486f9d1e128644.json",
+					"name" : "SQLite3_lib",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Threads::Threads::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Threads__Threads-Debug-b9bdf7c20e251beaeb75.json",
+					"name" : "Threads::Threads",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Trantor::Trantor::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Trantor__Trantor-Debug-3c902ae57a607000d4c1.json",
+					"name" : "Trantor::Trantor",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZLIB::ZLIB::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZLIB__ZLIB-Debug-7685e85692b9eb05ba5a.json",
+					"name" : "ZLIB::ZLIB",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "c-ares::cares::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-c-ares__cares-Debug-f52b56f711d5e18c3e45.json",
+					"name" : "c-ares::cares",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "c-ares::cares_shared::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-c-ares__cares_shared-Debug-5f6b185a94721f35892e.json",
+					"name" : "c-ares::cares_shared",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "jwt-cpp::jwt-cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-jwt-cpp__jwt-cpp-Debug-fbd94220e055438bbe93.json",
+					"name" : "jwt-cpp::jwt-cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "std::filesystem::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-std__filesystem-Debug-f0bbbf18f33c602106e6.json",
+					"name" : "std::filesystem",
+					"projectIndex" : 0
+				}
+			],
+			"directories" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14
+					],
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f6f22219c74102c3da70.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "test",
+					"jsonFile" : "directory-test-Debug-6d85f22693d17a73f5fa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.5"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "test",
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"abstractTargetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14
+					],
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "bbs",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1
+					],
+					"name" : "bbs_test",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bbs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bbs-Debug-7910f1a04ed000e2f160.json",
+					"name" : "bbs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "bbs_test::@36f028580bb02cc8272a",
+					"jsonFile" : "target-bbs_test-Debug-fe0760a8a916bd867a5b.json",
+					"name" : "bbs_test",
+					"projectIndex" : 1
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/StudyTools/CLion_Projects/bbs/backend/build",
+		"source" : "D:/StudyTools/CLion_Projects/bbs/backend"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 9
+	}
+}
